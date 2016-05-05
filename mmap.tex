@@ -1,0 +1,325 @@
+\documentclass[10pt]{article} 
+%\usepackage{palatino}
+\usepackage[letterpaper,hmargin=1in,vmargin=1in]{geometry}
+
+\usepackage[dvips]{graphicx} 
+\usepackage{enumerate}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{color} 
+\usepackage{multicol}
+%\usepackage{pifont}
+\usepackage{tikz}
+\usetikzlibrary{arrows}
+
+\definecolor{boldcolor}{rgb}{0.00,0.42,0.52}
+
+\renewcommand{\epsilon}{\varepsilon}
+
+% brackets
+\newcommand{\ngroup}[1]{\left(#1 \right)}
+\newcommand{\sgroup}[1]{\left[#1 \right]}
+\newcommand{\cgroup}[1]{\left\{#1 \right\}}
+\newcommand{\agroup}[1]{\left\langle #1 \right\rangle}
+
+\newcommand{\poly}{{\normalfont \small \textsf{poly}}}
+
+\newcommand{\MES}[1]{\ensuremath{\set{#1} = {#1}_0, {#1}_1, \ldots}}
+\newcommand{\SUCC}[3]{\ensuremath{\nu_{#1}(#2, #3)}}
+
+\newcommand{\bbN}{\mathbb{N}}
+\newcommand{\graphG}{G}
+\newcommand{\vertices}{V}
+\newcommand{\edges}{E}
+\newcommand{\succp}[2]{\nu^{#1}(#2)}
+\newcommand{\succpi}[2]{\nu_{#1}(#2)}
+\newcommand{\obD}{\overline{\bD}}
+
+\newcommand{\istar}{\ensuremath{{i^*}}}
+
+\newcommand{\advprprka}[1]{\textbf{Adv}^{\text{prp-rka}}_{\Phi, E}(#1)}
+\renewcommand{\Pr}{\mathsf{P}}
+\newcommand{\pr}{\mathsf{p}}
+\newcommand{\D}{\mathbf{D}}
+\newcommand{\RO}{\mathbf{RO}}
+\newcommand{\K}{\mathcal{K}}
+\newcommand{\Perm}[2]{\text{Perm}(#1,#2)}
+\newcommand{\X}{\mathcal{X}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\set}[1]{\mathcal{#1}}
+\newcommand{\A}{\mathcal{A}}
+\newcommand{\adv}{\mbox{adv}}
+\newcommand{\setrange}[2]{\{#1, \ldots, #2\}}
+
+\newcommand{\expect}{\mathsf{E}}
+\newcommand{\bigoh}{\mathcal{O}}
+\newcommand{\Adv}{\mathsf{Adv}}
+\newcommand{\rAdv}{\widetilde{\mathbf{Adv}}}
+\newcommand{\eqdef}{\stackrel{\text{def}}{=}}
+\renewcommand{\S}{\mathbf{S}}
+\renewcommand{\H}{\mathbf{H}}
+\newcommand{\F}{\mathbf{F}}
+\newcommand{\G}{\mathbf{G}}
+\renewcommand{\R}{\mathbf{R}}
+
+\newcommand{\Prob}[1]{\Pr\left[#1 \right]}
+\newcommand{\CondProb}[2]{ \Prob{#1 \,\big|\, #2}}
+\newcommand{\abs}[1]{\left| #1 \right|}
+
+\newcommand{\sG}{{\normalfont \textsf{G}}}
+\newcommand{\secpar}{n}
+\newcommand{\bA}{\mathbf{A}}
+\newcommand{\bB}{\mathbf{B}}
+\newcommand{\bC}{\mathbf{C}}
+\newcommand{\bD}{\mathbf{D}}
+\newcommand{\bE}{\mathbf{E}}
+\newcommand{\bF}{\mathbf{F}}
+\newcommand{\bG}{\mathbf{G}}
+\newcommand{\bH}{\mathbf{H}}
+\newcommand{\bI}{\mathbf{I}}
+\newcommand{\bJ}{\mathbf{J}}
+\newcommand{\bK}{\mathbf{K}}
+\newcommand{\bL}{\mathbf{L}}
+\newcommand{\bM}{\mathbf{M}}
+\newcommand{\bN}{\mathbf{N}}
+\newcommand{\bO}{\mathbf{O}}
+\newcommand{\bP}{\mathbf{P}}
+\newcommand{\bQ}{\mathbf{Q}} 
+\newcommand{\bR}{\mathbf{R}}
+\newcommand{\bS}{\mathbf{S}}
+\newcommand{\bT}{\mathbf{T}}
+\newcommand{\bU}{\mathbf{U}}
+\newcommand{\bV}{\mathbf{V}}
+\newcommand{\bW}{\mathbf{W}}
+\newcommand{\bX}{\mathbf{X}}
+\newcommand{\bY}{\mathbf{Y}}
+\newcommand{\bZ}{\mathbf{Z}}
+
+\newcommand{\bfa}{\mathbf{a}}
+\newcommand{\bfb}{\mathbf{b}}
+\newcommand{\bfc}{\mathbf{c}}
+\newcommand{\bfd}{\mathbf{d}}
+\newcommand{\bfe}{\mathbf{e}}
+\newcommand{\bff}{\mathbf{f}}
+\newcommand{\bfg}{\mathbf{g}}
+\newcommand{\bfh}{\mathbf{h}}
+\newcommand{\bfi}{\mathbf{i}}
+\newcommand{\bfj}{\mathbf{j}}
+\newcommand{\bfk}{\mathbf{k}}
+\newcommand{\bfl}{\mathbf{l}}
+\newcommand{\bfm}{\mathbf{m}}
+\newcommand{\bfn}{\mathbf{n}}
+\newcommand{\bfo}{\mathbf{o}}
+\newcommand{\bfp}{\mathbf{p}}
+\newcommand{\bfq}{\mathbf{q}}
+\newcommand{\bfr}{\mathbf{r}}
+\newcommand{\bfs}{\mathbf{s}}
+\newcommand{\bft}{\mathbf{t}}
+\newcommand{\bfu}{\mathbf{u}}
+\newcommand{\bfv}{\mathbf{v}}
+\newcommand{\bfw}{\mathbf{w}}
+\newcommand{\bfx}{\mathbf{x}}
+\newcommand{\bfy}{\mathbf{y}}
+\newcommand{\bfz}{\mathbf{z}}
+
+\newcommand{\oX}{\overline{X}}
+
+\newcommand{\oracle}{\mathsf{O}}
+\newcommand{\measure}{\mathcal{M}}
+\newcommand{\algostate}{\sigma}
+\newcommand{\Guess}[3]{{\normalfont \text{Guess}}^{#1}(#2 \,|\, #3)}
+\newcommand{\Guessi}[3]{{\normalfont \text{Guess}}_{#1}(#2 \,|\, #3)}
+\newcommand{\Guessis}[4]{{\normalfont \text{Guess}}^{#1}_{#2}(#3 \,|\, #4)}
+\newcommand{\CondExp}[2]{\Exp{#1\,|\,#2}}
+
+
+\newcommand{\Dist}[3]{\Delta^{#1}(#2, #3)}
+\newcommand{\dist}[3]{\delta^{#1}(#2, #3)}
+\newcommand{\Disti}[3]{\Delta_{#1}(#2, #3)}
+\newcommand{\disti}[3]{\delta_{#1}(#2, #3)}
+\newcommand{\Distis}[4]{\Delta^{#1}_{#2}(#3, #4)}
+
+\newcommand{\bin}[1]{\ensuremath{\{0,1\}^{#1}}}
+
+\newcommand{\range}{\text{range}}
+
+\newcommand{\rsample}{\stackrel{\mbox{\tiny $\$$}}{\leftarrow}}
+
+\newcommand{\bPhi}{\mathbf{\Phi}}
+\newcommand{\bLambda}{\mathbf{\Lambda}}
+
+\newcommand{\entropy}{\mathsf{H}}
+
+\newcommand{\err}{\zeta}
+
+\newcommand{\advA}{\bA}
+\newcommand{\distD}{\bD}
+
+\newcommand{\ES}{\gamma}
+
+\newcommand{\Exp}[1]{\mathsf{E}\left[#1\right]}
+\newcommand{\area}{W}
+\newcommand{\threshold}{\eta}
+
+\newcommand{\setd}[2]{\left\{ #1 \,:\, #2 \right\}}
+
+\newcommand{\bidirectional}[1]{\ensuremath{\langle #1 \rangle}}
+
+\newcommand{\offset}{\log\ngroup{(1-\epsilon)^{-1}}}
+\newcommand{\IBE}{\mathsf{IBE}}
+\newcommand{\Extract}{\mathsf{Extract}}
+\newcommand{\pp}{\mathsf{pp}}
+\newcommand{\msk}{\mathsf{msk}}
+\newcommand{\ID}{\mathrm{ID}}
+\newcommand{\id}{\mathrm{id}}
+\newcommand{\IDspace}{\ensuremath{\mathcal{ID}}}
+
+\newcommand{\IBEEnc}{\mathsf{IBEEnc}}
+\newcommand{\IBEGen}{\mathsf{IBEGen}}
+\newcommand{\IBEDec}{\mathsf{IBEDec}}
+\newcommand{\IBEExtract}{\mathsf{IBEExtract}}
+\renewcommand{\SS}{\ensuremath{\mathsf{SS}}}
+
+\theoremstyle{plain}
+        \newtheorem{theorem}{Theorem}[section]
+        \newtheorem{lemma}[theorem]{Lemma}
+        \newtheorem{corollary}[theorem]{Corollary}
+        \newtheorem{claim}[theorem]{Claim}
+        \newtheorem{observation}[theorem]{Observation}
+
+\theoremstyle{definition}
+        \newtheorem{definition}[theorem]{Definition}
+                \renewcommand{\enddefinition}{\hfill$\Diamond$\endtrivlist}
+        \newtheorem{example}[theorem]{Example}
+        \newtheorem{protocol}[theorem]{Protocol}
+        \newtheorem{game}[theorem]{Game}
+
+\theoremstyle{remark}
+        \newtheorem{remark}[theorem]{Remark}
+                \renewcommand{\endremark}{\hfill$\Diamond$\endtrivlist}
+
+
+\tikzset{
+  treenode/.style = {align=center, inner sep=0pt, text centered,
+    font=\sffamily},
+  arn_n/.style = {treenode, circle, white, font=\sffamily\bfseries, draw=black,
+    fill=black, text width=1.5em},% arbre rouge noir, noeud noir
+  arn_r/.style = {treenode, circle, red, draw=red, 
+    text width=1.5em, very thick},% arbre rouge noir, noeud rouge
+  arn_x/.style = {treenode, rectangle, draw=black,
+    minimum width=0.5em, minimum height=0.5em}% arbre rouge noir, nil
+}
+\makeatletter
+\newcommand\parag{%
+   \@startsection{paragraph}{4}{\z@}%
+       {-3\p@ \@plus -1\p@ \@minus -1\p@}%
+       {-0.2em \@plus -0.12em \@minus -0.05em}%
+       {\normalfont\normalsize\scshape}}
+\newcommand{\heading}[1]{\parag{#1}}
+\makeatother 
+
+\renewcommand{\labelitemi}{-}
+\newcommand{\cancel}[1]{}
+\newcommand{\ECC}{\mathsf{ECC}}
+\newcommand{\BSC}{\mathsf{BSC}}
+\newcommand{\CHAN}{\mathsf{CH}}
+\newcommand{\arrA}{\stackrel{\set{A}}{\to}}
+\newcommand{\arrB}{\stackrel{\set{B}}{\to}}
+\newcommand{\bits}{\{0,1\}}
+
+\newcommand{\poset}[2]{(#1; #2)}
+\newcommand{\process}{\mathcal{P}}
+\newcommand{\inp}{\set{I}}
+\newcommand{\out}{\set{O}}
+\newcommand{\bc}{\textrm{BC}}
+
+
+\newcommand{\PKE}{\mathsf{PKE}}
+\newcommand{\Gen}{\mathsf{Gen}}
+\newcommand{\Enc}{\mathsf{Enc}}
+\newcommand{\Dec}{\mathsf{Dec}}
+\newcommand{\pk}{\mathsf{pk}}
+\newcommand{\sk}{\mathsf{sk}}
+\newcommand{\getsr}{\rsample}
+\renewcommand{\advA}{\mathcal{A}}
+\newcommand{\st}{\mathsf{st}}
+\newcommand{\indcpa}{\mathrm{ind}\mbox{-}\mathrm{cpa}}
+\newcommand{\true}{\texttt{true}}
+\newcommand{\combine}{\mathsf{Combine}}
+\newcommand{\simulate}{\mathsf{Simulate}}
+\renewcommand{\Pr}{\mathsf{Pr}}
+\newcommand{\separ}{\begin{center} {\tiny \ding{168}\ding{168}\ding{168}\ding{168}\ding{168}\ding{168} }\end{center}}
+\newcommand{\bbR}{\mathbb{R}}
+\newcommand{\concat}{\;\|\;}
+\newcommand{\points}[1]{{\bf {\color{boldcolor} [Points: #1]}}}
+
+\newcommand{\angles}[1]{\langle #1 \rangle}
+\newcommand{\floor}[1]{\lfloor #1 \rfloor}
+\newcommand{\ceil}[1]{\lceil #1 \rceil}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Setup}{\mathsf{Setup}}
+\newcommand{\KeyGen}{\mathsf{KeyGen}}
+\newcommand{\Eval}{\mathsf{Eval}}
+
+\begin{document}
+\title{On Multilinear Mappings}
+\author{Shiyu Ji}
+\maketitle
+
+\section{Motivations}
+Multilinear maps have extensive applications in cryptography. Bilinear maps, one special case of multilinear maps, have been used to construct non-interactive proof systems \cite{GS08}, tripartite Diffie-Hellman \cite{Joux00}, identity-based encryption \cite{BF01}, short signatures \cite{BLS01}, etc. The applications of multilinear maps are too many to enumerate \cite{GGH13a}. 
+
+The constructions of multilinear maps (mmaps) for cryptographic use have been popularly researched in the past decade. Garg, Gentry and Halevi \cite{GGH13a} propose the first candidate multilinear mapping based on lattices. This is a breakthrough work since the GGH candidate can be used to construct the first general-purpose indistinguishability obfuscation (iO) \cite{GGH13b}, which give rise to endless applications, e.g., non-interactive zero knowledge proofs (NIZKs) \cite{SW14}, functional encryption \cite{GGH13b}, etc. However, a major concern of GGH scheme is that its hardness assumptions of multilinear mappings are not solid enough \cite{GGH13a}, i.e., it is apparently unlikely to reduce GGH assumptions to some conventional assumptions such as learning-with-errors (LWE) \cite{Reg09}. The problems such as how to attack the current assumptions, and how to improve the assumptions to eliminate potential attacks remain very open. Unsurprisingly there are already extensive works on multilinear mapping related attacks \cite{CGH15, HJ15, CDPR15, CJL16, MSZ16}. Among these attacks, Miles et al's annihilation attack \cite{MSZ16} breaks the candidate iO \cite{GGH13b} which is built upon GGH mmaps, and thus pushes Garg et al to modify their iO scheme to defend against the annihilation attack \cite{GMS16}.
+
+To better understand the security of GGH mmaps, it could be a good idea to summarize the existing attack ideas. Hopefully we could extend these attack ideas to analyze the state-of-art mmaps' hardness assumptions, and thus could improve the security of these assumptions.
+
+\section{Preliminaries}
+This section gives some background information for our discussions.
+\subsection{GGH mmap encoding}
+For \cite{GGH13a}, the plaintext space is a quotient ring $R_g = R/gR$, in which $R$ is a ring and $g$ is a ``small'' element in $R$ that generates an ideal $\angles{g}$. The space of encodings is $R_q = R/q$ in which $q$ is a ``large'' element in $R$. GGH scheme has two secret elements: the generator $g$ and a uniformly random denominator $z \in R_q$. A plaintext element $\alpha$ is treated as a coset of the ideal $\angles{g}$: $a = \alpha + \angles{g}$. GGH scheme ``encodes'' the plaintext element $\alpha$ ``at level-one'' as $u = [e/z]_q$, where $e$ is a ``small'' element in the coset $a$ \footnote{Such a small element in $a$ must exist since the generator $g$ is small and hence the basic cell of $\angles{g}$ is also small.}. In general a level-$i$ encoding of $a$ is $u = [e/z^i]_q$ where $e$ is small in $a$. Addition and subtraction of encodings at the same level is defined as addition in $R_q$, which gives an encoding at the same level, as long as the numerators do not exceed modulo $q$. Multiplication of elements also operates in $R_q$. If modulo $q$ is not exceeded, the product of elements from level $i_1$ and $i_2$ is at level $i_1 + i_2$.
+GGH scheme also has a publicly known ``zero-test parameter'' so that anyone can test whether an encoding at level $k$ is 0. The zero-test parameter $p_z$ is an element in the form $p_z = [hz^k/g]_q$ in which $h$ is small in $R$. To test a level-$k$ encoding $u = [\alpha+gr/z^k]_q$, one may compute $[p_z \cdot u]_q = [hr+h\alpha/g]_q$. It is clear that if the encoded plaintext $\alpha$ is 0, then $[p_z \cdot u]_q = [hr]_q$ which is small in $R$ since both $h$ and $r$ are small. $r$ is small since $[gr/z^k]_q$ is the encoding of 0 at level $k$.
+
+\subsection{GGH based iO}
+Garg et al \cite{GGH13b} propose the first GGH encoding-based iO. The construction starts with Barrington's theorem \cite{Bar86} which states that each fan-in-2, depth-$d$ boolean circuit in $\mathbf{NC}^1$ has an equivalent $5\times 5$ permutation branching program $BP$ of length $n \leq 4^d$. The branching program is defined as
+$$BP = \{(\inp(i), A_{i,0}, A_{i,1})\},\quad 1\leq i \leq n,$$
+where the function $\inp(i)$ defines which input bit is examined on the $i$'s step, and $A_{i,b}$'s are the $5\times 5$ permutation matrices. On input $(b_1b_2\cdots b_\ell)$, the evaluation of $BP$ is defined as
+$$P = \prod_{i=1}^n A_{i,b_{\inp(i)}}.$$ 
+Thus for circuits in $\mathbf{NC}^1$, it suffices to obfuscate their equivalent branching programs. To do this, we introduce randomness like Kilian's protocol \cite{Kil88}. That is, choose $n$ invertible matrices $R_i$ at uniformly random, and define the ``obfuscated'' matrices as
+$$\tilde{A}_{i,b} = R_{i-1} A_{i,b} R_i^{-1}.$$
+Clearly by doing this the evaluation of the branching program will not change. However, just doing this is not secure since the adversary can distinguish by observing the matrices partially. For example, if the adversary knows for some index $k$, $A_{k,0} = A_{k,1}$ holds for one program and does not hold for another, then it is easy to distinguish them by checking if $\tilde{A}_{k,0} = \tilde{A}_{k,1}$. To eliminate this attack, we again introduce randomness by computing two $(2m+5) \times (2m+5)$ block-diagonal matrices $D_{i,b}$ for each $i$, where the upper $2m$ diagonal entries are chosen at random, and the bottom-right $5\times 5$ are $\alpha_{i,b} A_{i,b}$ ($\alpha_{i,b}$'s are randomly sampled from the ring $R$).
+$$D_{i,b} \sim \begin{pmatrix}
+\$ & & & \\
+& \ddots & & \\
+& & \$ & \\
+& & & \alpha_{i,b} A_{i,b} \\
+\end{pmatrix}, b \in \bits.$$ 
+Since the randomly sampled entries are different in $D_{i,0}$ and $D_{i,1}$, this can make 
+$$\tilde{D}_{i,b} = R_{i-1} D_{i,b} R_i^{-1}$$
+statistically indistinguishable for $b = 0,1$. GGH iO also includes two bookend vectors $s$ and $t$
+$$s \sim (0, \cdots, 0, \$, \cdots, \$, s^*), \quad t \sim (\$, \cdots, \$, 0, \cdots, 0, t^*)^T,$$
+where $s^*$ and $t^*$ are randomly chosen 5-dimensional vectors. Similar to the $2m$ extra dimension above, the ``obfuscated'' bookend vectors are given by
+$$\tilde{s} = sR_0^{-1}, \quad \tilde{t} = R_n t.$$
+In \cite{GGH13b}, the security of the construction above is based on a strong assumption, Multilinear Jigsaw Puzzles, on mmaps. However, this assumption is very debatable today. The authors also amplify the hardness of the $\mathbf{NC}^1$ case to the poly-depth circuits by using Fully Homomorphic Encryption, which has efficient constructions based on lattices \cite{BV14, GSW13}.
+
+\subsection{A little survey on existing attacks}
+The existing attacks on GGH mmap encodings can be divided into the following classes:
+\begin{itemize}
+\item {\bf Zeroizing}. Such attacks require the knowledge of low-level encodings on zero \cite{GGH13a, HJ15, CGH15}. Note that such knowledge is not always available. Thus this is a strong assumption.
+\item {\bf Annihilation}. \cite{MSZ16} gives the first attack on GGH iO without knowing low-level encodings on zero. The attack uses a non-linear annihilation polynomial to exploit the algebraic linearity of GGH mmaps.
+\item {\bf Quantum attacks}, including works like \cite{CDPR15, CJL16}.
+\end{itemize}
+
+\section{Our Proposal}
+Based on the existing results on mmaps, we propose our plan in this project:
+\begin{itemize}
+\item Since the original treatment of GGH mmap encodings and hardness assumptions are algebraically complicated and thus hard to understand, we plan to put them in an easier way, e.g., by examples.
+\item We plan to investigate the relation between the annihilation attack and the latest ``patch'' given by \cite{GMS16}, and we will see whether there is any space to improve on the security assumptions on mmaps.
+\end{itemize}
+
+\bibliographystyle{alpha}
+\bibliography{mmap}
+
+\end{document}
