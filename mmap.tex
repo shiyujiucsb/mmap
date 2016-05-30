@@ -272,15 +272,38 @@
 \section{Motivations}
 Multilinear maps have extensive applications in cryptography. Bilinear maps, one special case of multilinear maps, have been used to construct non-interactive proof systems \cite{GS08}, tripartite Diffie-Hellman \cite{Joux00}, identity-based encryption \cite{BF01}, short signatures \cite{BLS01}, etc. The applications of multilinear maps are too many to enumerate \cite{GGH13a}. 
 
-The constructions of multilinear maps (mmaps) for cryptographic use have been popularly researched in the past decade. Garg, Gentry and Halevi \cite{GGH13a} propose the first candidate multilinear mapping based on lattices. This is a breakthrough work since the GGH candidate can be used to construct the first general-purpose indistinguishability obfuscation (iO) \cite{GGH13b}, which give rise to endless applications, e.g., non-interactive zero knowledge proofs (NIZKs) \cite{SW14}, functional encryption \cite{GGH13b}, etc. However, a major concern of GGH scheme is that its hardness assumptions of multilinear mappings are not solid enough \cite{GGH13a}, i.e., it is apparently unlikely to reduce GGH assumptions to some conventional assumptions such as learning-with-errors (LWE) \cite{Reg09}. The problems such as how to attack the current assumptions, and how to improve the assumptions to eliminate potential attacks remain very open. Unsurprisingly there are already extensive works on multilinear mapping related attacks \cite{CGH15, HJ15, CDPR15, CJL16, MSZ16}. Among these attacks, Miles et al's annihilation attack \cite{MSZ16} breaks the candidate iO \cite{GGH13b} which is built upon GGH mmaps, and thus pushes Garg et al to modify their iO scheme to defend against the annihilation attack \cite{GMS16}.
+The constructions of multilinear maps (mmaps) for cryptographic use have been popularly researched in the past decade. Garg, Gentry and Halevi \cite{GGH13a} propose the first candidate multilinear mapping based on lattices. This is a breakthrough work since the GGH candidate can be used to construct the first general-purpose indistinguishability obfuscation (iO) \cite{GGH13b}, which give rise to endless applications, e.g., non-interactive zero knowledge proofs (NIZKs) \cite{SW14}, functional encryption \cite{GGH13b}, etc. However, a major concern of GGH scheme is that its hardness assumptions of multilinear mappings are not solid enough \cite{GGH13a}, i.e., it is apparently unlikely to reduce GGH assumptions to some conventional assumptions such as learning-with-errors (LWE) \cite{Reg09}. The problems such as how to attack the current assumptions, and how to improve the assumptions to eliminate potential attacks remain very open. Unsurprisingly there are already extensive works on multilinear mapping related attacks \cite{CGH15, HJ15, CDPR15, CJL16, MSZ16}. Among these attacks, Miles et al's annihilation attack \cite{MSZ16} breaks the candidate iO \cite{GGH13b} which is built upon GGH mmaps, and thus pushes Garg et al to modify the original GGH iO scheme to defend against the annihilation attack \cite{GMS16}.
 
 To better understand the security of GGH mmaps, it could be a good idea to summarize the existing attack ideas. Hopefully we could extend these attack ideas to analyze the state-of-art mmaps' hardness assumptions, and thus could improve the security of these assumptions.
 
 \section{Preliminaries}
 This section gives some background information for our discussions.
-\subsection{GGH mmap encoding}
-For \cite{GGH13a}, the plaintext space is a quotient ring $R_g = R/gR$, in which $R$ is a ring and $g$ is a ``small'' element in $R$ that generates an ideal $\angles{g}$. The space of encodings is $R_q = R/q$ in which $q$ is a ``large'' element in $R$. GGH scheme has two secret elements: the generator $g$ and a uniformly random denominator $z \in R_q$. A plaintext element $\alpha$ is treated as a coset of the ideal $\angles{g}$: $a = \alpha + \angles{g}$. GGH scheme ``encodes'' the plaintext element $\alpha$ ``at level-one'' as $u = [e/z]_q$, where $e$ is a ``small'' element in the coset $a$ \footnote{Such a small element in $a$ must exist since the generator $g$ is small and hence the basic cell of $\angles{g}$ is also small.}. In general a level-$i$ encoding of $a$ is $u = [e/z^i]_q$ where $e$ is small in $a$. Addition and subtraction of encodings at the same level is defined as addition in $R_q$, which gives an encoding at the same level, as long as the numerators do not exceed modulo $q$. Multiplication of elements also operates in $R_q$. If modulo $q$ is not exceeded, the product of elements from level $i_1$ and $i_2$ is at level $i_1 + i_2$.
+\subsection{GGH mmap encodings}
+For \cite{GGH13a}, the plaintext space is a quotient ring $R_g = R/gR$, in which $R$ is a ring and $g$ is a ``small'' element in $R$ that generates an ideal $\angles{g}$. The space of encodings is $R_q = R/q$ in which $q$ is a ``large'' element in $R$. GGH scheme has two secret elements: the generator $g$ and a uniformly random denominator $z \in R_q$. A plaintext element $\alpha$ is treated as a coset of the ideal $\angles{g}$: $a = \alpha + \angles{g}$. GGH scheme ``encodes'' the plaintext element $\alpha$ ``at level-one'' as $u = [e/z]_q$, where $e$ is a ``small'' element in the coset $a$ \footnote{Such a small element in $a$ must exist since the generator $g$ is small and hence the basic cell of $\angles{g}$ is also small.}. In general a level-$i$ encoding of $a$ is $u = [e/z^i]_q$ where $e$ is small in $a$. Addition of encodings at the same level is defined as addition in $R_q$, which gives an encoding at the same level, as long as the numerators do not exceed modulo $q$. Multiplication of elements also operates in $R_q$. If modulo $q$ is not exceeded, the product of elements from level $i_1$ and $i_2$ is at level $i_1 + i_2$.
 GGH scheme also has a publicly known ``zero-test parameter'' so that anyone can test whether an encoding at level $k$ is 0. The zero-test parameter $p_z$ is an element in the form $p_z = [hz^k/g]_q$ in which $h$ is small in $R$. To test a level-$k$ encoding $u = [\alpha+gr/z^k]_q$, one may compute $[p_z \cdot u]_q = [hr+h\alpha/g]_q$. It is clear that if the encoded plaintext $\alpha$ is 0, then $[p_z \cdot u]_q = [hr]_q$ which is small in $R$ since both $h$ and $r$ are small. $r$ is small since $[gr/z^k]_q$ is the encoding of 0 at level $k$.
+
+\subsection{Hardness assumption of GGH encodings}
+The hardness assumption of GGH mmap encodings as above is analogous to DDH assumption. Let $I$ denote $\angles{g}$. The adversary knows $(y, \{x_i\}_{i=1}^m)$, where $y = [a/z]_q$ is a level-1 encoding of $1+I$ and each $x_i = [b_i/z]_q$ is a level-1 encoding of $I$ (thus each secret $b_i$ is a short element in $I$). We also give a public zero-testing parameter at level $k$: $p_z = [hz^k/g]_q$ s.t. the norm size of $h$ is around $\sqrt{q}$. Consider the following procedure, in which $\lambda$, $n$, $q$, $k$, $\sigma$ are of size $\mathsf{poly}(n)$ and $\sigma^*=\sigma\cdot 2^\lambda$:
+\begin{quote}
+\begin{enumerate}
+\item Draw $g \getsr D_{\Z^n, \sigma}$ (from Gaussian distribution over $\Z^n$). Draw $z \getsr U_{R_q}$, $a \getsr D_{1+\angles{g},n\sigma}$ and $h \getsr D_{\Z^n, \sqrt{q}}$. Compute $y = [a/z]_q$ and $p_z = hz^k/g$.
+\item For each $i\in [m]$, draw $b_i \getsr D_{I,\sigma}$ and compute $x_i = [b_i/z]_q$.
+\item For each $i=0,\cdots, k$, draw $e_i \getsr D_{\Z^n,\sigma}$. Set $u_i = [e_i\cdot y + \sum_j r_{ij}x_j]_q$, where $r_{ij} \getsr D_{\Z, \sigma^*}$.
+\item Draw $f \getsr D_{\Z^n,\sigma}$.
+\item Set $u^* = [\prod_{i=1}^k u_i]_q$ (level-$k$ encoding).
+\item Set $v = [e_0 \cdot u^*]_q$ (encoding of the correct product $\prod_{i=0}^k e_i$).
+\item Set $v' = [f \cdot u^*]_q$ (encoding of a random element).
+\end{enumerate}
+\end{quote}
+Like DDH, the hardness assumption of GGH encodings states that the distributions
+$$\{y, \{x_i\}_{i=1}^m, p_z, \{u_i\}_{i=0}^k, v\}\quad and \quad \{y, \{x_i\}_{i=1}^m, p_z, \{u_i\}_{i=0}^k, v'\}$$
+are computationally indistinguishable.
+
+The above hardness assumption is also known as graded DDH assumption. It is a strong assumption that have extensive applications. For example, in multiparty key exchange (MKE) settings, each user $i$ can make its own $u_i$ public, while $e_i$ is its own secret. The public parameters contain $(y, \{x_i\}_{i=1}^m, p_z)$. To obtain the shared key, each user needs to compute $v$ and then use $p_z$ to extract the high-order bits as the shared key, i.e., since in
+$$[v\cdot p_z]_q = [\prod_{i=0}^k(\frac{e_i(1+ag)}{z}+\sum_j r_{ij}\frac{b_j}{z})\frac{h\cdot z^k}{g}]_q=[\frac{h(1+ag)^k\prod_{i=0}^k e_i}{g} + h\cdot c]_q$$
+the norm size of $h\cdot c$ is small (i.e., less than $\sqrt{q}$), the high-order bits $h(1+ag)^k(\prod_{i=0}^k e_i)/g$ obtained by each user must be the same. Its security directly follows the graded DDH. There are also many other applications, e.g., witness encryption \cite{GGSW13}, iO \cite{GGH13b}, etc.
+
+Note that the hardness assumption above has been proven to be false, since several valid attacks (see later) have been found. Intuitively, GGH encoding scheme is essentially different from classical mmaps (e.g., in DDH where the computations of $g^a$, $g^b$ are both deterministic), since GGH is a \emph{randomized} encoding scheme. In order to check whether two encodings encode the same message, a zero-testing parameter $p_z$ is publicly know. By exploiting $p_z$ and some other public parameters, the adversary can restore some secret messages like $e_i$ to some extent. We will review such attacks late and also discuss the countermeasures against these attacks.
 
 \subsection{GGH based iO}
 Garg et al \cite{GGH13b} propose the first GGH encoding-based iO. The construction starts with Barrington's theorem \cite{Bar86} which states that each fan-in-2, depth-$d$ boolean circuit in $\mathbf{NC}^1$ has an equivalent $5\times 5$ permutation branching program $BP$ of length $n \leq 4^d$. The branching program is defined as
@@ -302,20 +325,24 @@ statistically indistinguishable for $b = 0,1$. GGH iO also includes two bookend 
 $$s \sim (0, \cdots, 0, \$, \cdots, \$, s^*), \quad t \sim (\$, \cdots, \$, 0, \cdots, 0, t^*)^T,$$
 where $s^*$ and $t^*$ are randomly chosen 5-dimensional vectors. Similar to the $2m$ extra dimension above, the ``obfuscated'' bookend vectors are given by
 $$\tilde{s} = sR_0^{-1}, \quad \tilde{t} = R_n t.$$
-In \cite{GGH13b}, the security of the construction above is based on a strong assumption, Multilinear Jigsaw Puzzles, on mmaps. However, this assumption is very debatable today. The authors also amplify the hardness of the $\mathbf{NC}^1$ case to the poly-depth circuits by using Fully Homomorphic Encryption, which has efficient constructions based on lattices \cite{BV14, GSW13}.
+In \cite{GGH13b}, the security of the construction above is based on a strong assumption, Multilinear Jigsaw Puzzles (MJP), on mmaps. The MJP assumption says any two output distributions of the mmap encoding are computationally indistinguishable. In particular, the zero-output distributions of mmaps from two different circuits with the identical functionality are indistinguishable. However, this assumption is very debatable today since many concrete attacks have been found. The authors also amplify the hardness of the $\mathbf{NC}^1$ case to the poly-depth circuits by using Fully Homomorphic Encryption, which has efficient constructions based on lattices \cite{BV14, GSW13}.
 
-\subsection{A little survey on existing attacks}
-The existing attacks on GGH mmap encodings can be divided into the following classes:
-\begin{itemize}
-\item {\bf Zeroizing}. Such attacks require the knowledge of low-level encodings on zero \cite{GGH13a, HJ15, CGH15}. Note that such knowledge is not always available. Thus this is a strong assumption.
-\item {\bf Annihilation}. \cite{MSZ16} gives the first attack on GGH iO without knowing low-level encodings on zero. The attack uses a non-linear annihilation polynomial to exploit the algebraic linearity of GGH mmaps.
-\item {\bf Quantum attacks}, including works like \cite{CDPR15, CJL16}.
-\end{itemize}
+\section{A Survey on Existing Attacks}
+This section reviews some important attacks on graded DDH assumption.
+
+\subsection{Weak Discrete Logarithm Attack}
+Weak DL attack is firstly proposed in \cite{GGH13a} as a sanity check. 
+One may compute the following:
+$$Y = [y^{k-1}x_1p_z]_q = h(1+ag)^{k-1}b_1,$$
+$$X_i = [y^{k-2}x_ix_1p_z]_q = h(1+ag)^{k-2}b_igb_1,$$
+$$W_i = [u_iy^{k-2}x_1p_z]_q = v_iY + \sum_j r_{ij} X_j.$$
+For the second equality in each line, we can remove mod $q$, since its value is smaller than $q$. 
 
 \section{Our Proposal}
 Based on the existing results on mmaps, we propose our plan in this project:
 \begin{itemize}
 \item Since the original treatment of GGH mmap encodings and hardness assumptions are algebraically complicated and thus hard to understand, we plan to put them in an easier way, e.g., by examples.
+\item Similarly the GGH encoding-based iOs are theoretically complicated and may be better understood by concrete examples. We plan to find such examples that obfuscate circuits with simple functionalities, e.g., constant functions.
 \item We plan to investigate the relation between the annihilation attack and the latest ``patch'' given by \cite{GMS16}, and we will see whether there is any space to improve on the security assumptions on mmaps.
 \end{itemize}
 
